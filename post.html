@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS for Styling -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6; /* Light background for contrast */
+            color: #333; /* Dark text for readability */
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px; /* Increased padding for better spacing */
+            background: #ffffff; /* White background for the content area */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(20px); /* Start slightly lower for animation */
+            animation: fadeInUp 0.5s forwards; /* Animation for fade-in effect */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .post-header h2 {
+            font-size: 5vw; /* Responsive font size based on viewport width */
+            max-font-size: 2.5rem; /* Maximum size for larger screens */
+            font-weight: 700;
+            color: #007bff; /* Primary color for the title */
+        }
+
+        .post-header p {
+            font-size: 1rem;
+            color: #6c757d; /* Secondary color for the author and date */
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Full width */
+            height: 400px; /* Fixed height for uniformity */
+            object-fit: cover; /* Maintain aspect ratio */
+            border-radius: 12px 12px 0 0;
+            transition: transform 0.5s ease; /* Animation for image transition */
+        }
+
+        .carousel-item:hover img {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            color: #495057; /* Darker text for content */
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .open-link-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .open-link-btn a {
+            padding: 12px 25px;
+            background-color: #28a745; /* Green button */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .open-link-btn a:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: translateY(-2px);
+        }
+
+        .open-link-btn.secondary a {
+            background-color: #007bff; /* Blue for secondary button */
+        }
+
+        .open-link-btn.secondary a:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Centered Spinner */
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height for centering */
+            position: fixed; /* Fixed position to cover the entire viewport */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            z-index: 999; /* Ensure it appears above other content */
+            display: none; /* Initially hidden */
+        }
+
+        @media (max-width: 768px) {
+            .post-header h2 {
+                font-size: 6vw; /* Adjusted for smaller screens */
+            }
+
+            .post-content {
+                font-size: 1rem; /* Smaller font size for mobile */
+            }
+
+            .carousel-inner img {
+                height: 300px; /* Adjust height for mobile */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .post-header h2 {
+                font-size: 8vw; /* Further adjust for very small screens */
+            }
+
+            .post-content {
+                font-size: 0.9rem; /* Smaller font size for very small screens */
+            }
+
+            .carousel-inner img {
+                height: 200px; /* Further adjust height for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="loadingSpinner">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Blog Content Area -->
+    <div class="container py-5" id="postContainer" style="display: none;"></div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get("id");
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchPost(postId);
+        });
+
+        function fetchPost(id) {
+            document.getElementById("loadingSpinner").style.display = "flex"; // Show spinner
+            fetch("https://script.google.com/macros/s/AKfycbzh0SeC-x-ZeQ0-gpjMrOs6u7fEjTq8k8dh0e7MKu2DHnIq-HIplj8mzJWQYPh-iSzu/exec") // Replace with your script URL
+                .then(response => response.json())
+                .then(posts => {
+                    const post = posts.find(p => p.id == id);
+                    displayPost(post);
+                })
+                .catch(error => console.error("Error fetching post:", error))
+                .finally(() => {
+                    document.getElementById("loadingSpinner").style.display = "none"; // Hide spinner
+                    document.getElementById("postContainer").style.display = "block"; // Show content
+                });
+        }
+
+        function displayPost(post) {
+            const postContainer = document.getElementById("postContainer");
+            let images = [post.image, post.image2, post.image3].filter(img => img);
+
+            let carouselImages = images.map((img, index) => {
+                return `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${img}" class="d-block w-100" alt="Post Image ${index + 1}">
+                    </div>
+                `;
+            }).join('');
+
+            postContainer.innerHTML = `
+                <div class="post-header">
+                    <h2>${post.title}</h2>
+                    <p><strong>By ${post.author}</strong> | <small>${post.date}</small></p>
+                </div>
+
+                <!-- Carousel -->
+                <div id="imageCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        ${carouselImages}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <div class="post-content">
+                    <p>${post.content}</p>
+                </div>
+
+                <!-- Open Link Buttons -->
+                <div class="open-link-btn">
+                    <a href="${post.link}" target="_blank">Demo View</a>
+                </div>
+                <div class="open-link-btn secondary">
+                    <a href="${post.link2}" target="_blank">Buy Now</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

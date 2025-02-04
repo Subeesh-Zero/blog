@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Blog</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-container input {
+            padding-left: 45px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            padding: 12px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 1.3rem;
+        }
+
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .btn-primary {
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            border: none;
+        }
+
+        .pagination-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffff;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Dynamic Blog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Latest Posts</h2>
+
+        <!-- Search Bar -->
+        <div class="search-container mb-4">
+            <input type="text" id="searchInput" class="form-control ps-5" placeholder="Search blog posts..." onkeyup="searchPosts()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Blog Posts -->
+        <div class="row" id="blogContainer"></div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <button id="previousButton" class="btn btn-secondary" onclick="previousPage()">Previous</button>
+            <span id="pageDisplay" class="page-info">Page 1</span>
+            <button id="nextButton" class="btn btn-secondary" onclick="nextPage()">Next</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Dynamic Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let allPosts = [];
+        let filteredPosts = [];
+        let currentPage = 1;
+        const postsPerPage = 9;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchPosts();
+        });
+
+        function fetchPosts() {
+            document.getElementById("loadingSpinner").style.display = "flex"; 
+
+            fetch("https://script.google.com/macros/s/AKfycbzh0SeC-x-ZeQ0-gpjMrOs6u7fEjTq8k8dh0e7MKu2DHnIq-HIplj8mzJWQYPh-iSzu/exec")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch blog posts');
+                    }
+                    return response.json();
+                })
+                .then(posts => {
+                    allPosts = posts;
+                    filteredPosts = allPosts;
+                    displayPosts();
+                    document.getElementById("loadingSpinner").style.display = "none";
+                })
+                .catch(error => {
+                    console.error("Error fetching blog posts:", error);
+                    alert("There was an error fetching the blog posts. Please try again later.");
+                    document.getElementById("loadingSpinner").style.display = "none";
+                });
+        }
+
+        function displayPosts() {
+            const blogContainer = document.getElementById("blogContainer");
+            blogContainer.innerHTML = "";
+
+            if (filteredPosts.length === 0) {
+                blogContainer.innerHTML = `<div class="col-12 text-center"><p>No results found</p></div>`;
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = currentPage * postsPerPage;
+            const currentPosts = filteredPosts.slice(startIndex, endIndex);
+
+            currentPosts.forEach(post => {
+                let postElement = `
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card shadow-sm border-0">
+                            <a href="post.html?id=${post.id}">
+                                <img src="${post.image}" class="card-img-top" alt="${post.title}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">${post.title}</h5>
+                                <p class="card-text">${post.content.slice(0, 100)}...</p>
+                                <small class="text-muted">By ${post.author} on ${post.date}</small>
+                                <div class="mt-3">
+                                    <a href="post.html?id=${post.id}" class="btn btn-primary w-100">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                blogContainer.innerHTML += postElement;
+            });
+            updatePagination();
+        }
+
+        function searchPosts() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase();
+            filteredPosts = allPosts.filter(post =>
+                post.title.toLowerCase().includes(searchText) || 
+                post.content.toLowerCase().includes(searchText) || 
+                post.author.toLowerCase().includes(searchText)
+            );
+            currentPage = 1;
+            displayPosts();
+        }
+
+        function nextPage() {
+            if ((currentPage * postsPerPage) < filteredPosts.length) {
+                currentPage++;
+                displayPosts();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPosts();
+            }
+        }
+
+        function updatePagination() {
+            document.getElementById("pageDisplay").textContent = `Page ${currentPage}`;
+        }
+    </script>
+</body>
+</html>
