@@ -114,7 +114,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">2X Dark Store</a>
+            <a class="navbar-brand" href="#"><b>2X Dark Store</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -184,7 +184,7 @@
         function fetchPosts() {
             document.getElementById("loadingSpinner").style.display = "flex"; 
 
-            fetch("https://script.google.com/macros/s/AKfycbzh0SeC-x-ZeQ0-gpjMrOs6u7fEjTq8k8dh0e7MKu2DHnIq-HIplj8mzJWQYPh-iSzu/exec")
+            fetch("https://script.google.com/macros/s/AKfycbzATR6oRocm7ljKPeh4QBH2yeZ9R8yDlSRhiNUiaLl69x0cU3k6cXs9W4MWbzBxHjNV/exec")
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to fetch blog posts');
@@ -198,7 +198,7 @@
                     document.getElementById("loadingSpinner").style.display = "none";
                 })
                 .catch(error => {
-                    console.error("Error fetching blog posts:", error);
+                    console.error("Error fetching Store:", error);
                     alert("There was an error fetching the blog posts. Please try again later.");
                     document.getElementById("loadingSpinner").style.display = "none";
                 });
