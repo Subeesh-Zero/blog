@@ -1,7 +1,7 @@
 # 🚀 Project Store Hosting  
 *A dynamic project store powered by Google Apps Script backend.*  
 
-![Project Screenshot](blog1.jpg)  
+![Project Screenshot](https://lh3.googleusercontent.com/d/15JzjTkel2VPW87ui8Cr0iWkqgnZiIrTv)  
 
 ## 🌟 About the Project  
 **Project Store Hosting** is a web-based platform that allows users to **showcase, manage, and share their projects**. It features a **Google Apps Script backend**, seamlessly integrating with Google Sheets for dynamic data management.  
