@@ -3,97 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Post</title>
+    <title>Store Post</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- Custom CSS -->
     <style>
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
         body {
-            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
             color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
+
         .container {
-            max-width: 90%;
-            margin: auto;
-            padding: 30px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in-out;
+            flex: 1;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Navbar */
+        .navbar {
+            background-color: #007bff;
         }
-        .post-header h2 {
-            font-size: calc(1.5rem + 1vw);
-            font-weight: 700;
-            color: #007bff;
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
         }
-        .carousel img {
+
+        /* Loading Spinner */
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 200;
+        }
+
+        /* Carousel with Black Background */
+        #imageCarousel {
+            background-color: #000000;
+            border-radius: 10px;
+            padding: 3px;
+        }
+
+        .carousel-inner img {
             width: 100%;
             height: auto;
-            max-height: 500px;
             object-fit: cover;
             border-radius: 12px;
         }
-        @media (max-width: 768px) {
-            .carousel img {
-                max-height: 300px;
-            }
+
+        /* Carousel Control Arrows */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black; /* Change the background color to black */
+            border-radius: 50%; /* Optional: make the background circular */
         }
-        .btn-custom {
-            transition: transform 0.3s;
+
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            color: white; /* Change the arrow color to white */
         }
-        .btn-custom:hover {
+
+        /* Post Styling */
+        .post-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .post-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            color: #495057;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        /* Buttons */
+        .open-link-btn {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            white-space: nowrap;
+        }
+
+        .open-link-btn a {
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .open-link-btn a:first-child {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .open-link-btn a:last-child {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .open-link-btn a:hover {
             transform: scale(1.05);
+        }
+
+        .open-link-btn a:first-child:hover {
+            background-color: #0056b3;
+        }
+
+        .open-link-btn a:last-child:hover {
+            background-color: #218838;
+        }
+
+        /* Footer Always at the Bottom */
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .post-header h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container mt-5" id="postContainer">
-        <!-- Spinner will be shown while loading -->
-        <div class="text-center my-3">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">2X Dark Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id ="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://subeesh-zero.github.io/Profile/">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://wa.me/+917695958035">Contact</a></li>
+                </ul>
             </div>
+        </div>
+    </nav>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="loadingSpinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 
+    <!-- Blog Content Area -->
+    <div class="container py-5" id="postContainer" style="display: none;"></div>
+
+    <!-- Footer (Always at the Bottom) -->
+    <footer>
+        <p>&copy; 2025 2X Dark Store. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get("id");
+
         document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get("id");
             fetchPost(postId);
         });
 
         function fetchPost(id) {
-            fetch("https://script.google.com/macros/s/AKfycbzh0SeC-x-ZeQ0-gpjMrOs6u7fEjTq8k8dh0e7MKu2DHnIq-HIplj8mzJWQYPh-iSzu/exec")
+            document.getElementById("loadingSpinner").style.display = "flex";
+            fetch("https://script.google.com/macros/s/AKfycbwUJOMlFsnLHhoklvEk78XY8RIdztzmqP16TrGQi8vOJwrAarDbaRRGLNO39q56R9E/exec")
                 .then(response => response.json())
                 .then(posts => {
                     const post = posts.find(p => p.id == id);
                     displayPost(post);
                 })
-                .catch(error => console.error("Error fetching post:", error));
+                .catch(error => console.error("Error fetching post:", error))
+                .finally(() => {
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("postContainer").style.display = "block";
+                });
         }
 
         function displayPost(post) {
             const postContainer = document.getElementById("postContainer");
-            postContainer.innerHTML = ` 
-                <div class="text-center post-header">
-                    <h2 class="display-4">${post.title}</h2>
-                    <p class="text-muted">By ${post.author} | ${post.date}</p>
-                </div>
-                <div id="imageCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        ${[post.image, post.image2, post.image3].filter(Boolean).map((img, i) => `
-                            <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                                <img src="${img}" class="d-block w-100" alt="Post Image ${i+1}">
-                            </div>
-                        `).join('')}
+            let images = [post.image, post.image2, post.image3].filter(img => img);
+
+            let carouselImages = images.map((img, index) => {
+                return `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${img}" class="d-block w-100" alt="Post Image ${index + 1}">
                     </div>
+                `;
+            }).join('');
+
+            postContainer.innerHTML = `
+                <div class="post-header">
+                    <h2>${post.title}</h2>
+                    <p><strong>By ${post.author}</strong> | <small>${post.date}</small></p>
+                </div>
+
+                <!-- Image Carousel with Black Background -->
+                <div id="imageCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">${carouselImages}</div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </button>
@@ -101,15 +244,20 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                 </div>
-                <div class="post-content mb-4">
-                    <p>${post.content}</p>
+
+                <div class="post-content">
+                    <p><b>${post.content}</b></p>
+                    <p style="color: #28a745;" class="price">Price: ${post.price ? `$${post.price}` : 'Not available'}</p>
+                    <p>${post.content2}</p> 
                 </div>
-                <div class="text-center">
-                    <a href="${post.link}" class="btn btn-success btn-lg btn-custom" target="_blank">Demo Play</a>
-                    <a href="${post.link2}" class="btn btn-primary btn-lg btn-custom ms-3" target="_blank">Buy Now</a>
+
+                <div class="open-link-btn">
+                    <a href="${post.link}">Open Demo</a>
+                    <a href="${post.link2}" class="secondary">Buy Now</a>
                 </div>
             `;
         }
     </script>
+
 </body>
 </html>
