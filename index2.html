@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>My Store Free</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Store Premium</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- FontAwesome for Icons -->
@@ -20,65 +20,19 @@
     .navbar { background-color: #007bff; }
     .navbar-brand, .nav-link { color: #fff !important; }
     .search-container { max-width: 600px; margin: 20px auto; position: relative; }
-    .search-container input {
-      padding-left: 45px;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      padding: 12px;
-      border: 1px solid #ccc;
-      width: 100%;
-    }
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #777;
-      font-size: 1.3rem;
-    }
-    .card {
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease-in-out;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-    .card img {
-      height: 200px;
-      object-fit: cover;
-      width: 100%;
-    }
-    .btn-primary {
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      padding: 10px 20px;
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      border: none;
-    }
-    .pagination-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .footer {
-      background-color: #007bff;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      margin-top: auto;
-    }
+    .search-container input { padding-left: 45px; border-radius: 50px; font-size: 1.1rem; padding: 12px; border: 1px solid #ccc; width: 100%; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #777; font-size: 1.3rem; }
+    .card { border-radius: 12px; overflow: hidden; transition: all 0.3s ease-in-out; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
+    .card img { height: 200px; object-fit: cover; width: 100%; }
+    .btn-primary { border-radius: 50px; font-weight: 600; transition: all 0.3s ease; padding: 10px 20px; background: linear-gradient(90deg, #007bff, #0056b3); border: none; }
+    .pagination-container { text-align: center; margin-top: 20px; }
+    .footer { background-color: #007bff; color: white; padding: 20px 0; text-align: center; margin-top: auto; }
     .loading-spinner {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: #ffff;
       z-index: 100;
       justify-content: center;
@@ -91,15 +45,14 @@
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="index1.html">2X Dark Store</a>
+      <a class="navbar-brand" href="index2.html">2X Dark Store</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="index2.html">Store Free</a></li>
+          <li class="nav-item"><a class="nav-link" href="index1.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="https://subeesh-zero.github.io/Profile/">About</a></li>
           <li class="nav-item"><a class="nav-link" href="https://wa.me/+917695958035">Contact</a></li>
         </ul>
@@ -107,9 +60,8 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <div class="container py-5">
-    <h2 class="text-center mb-4">Premiumb Store</h2>
+    <h2 class="text-center mb-4">Store Free</h2>
     <!-- Search Bar -->
     <div class="search-container mb-4">
       <input type="text" id="searchInput" class="form-control ps-5" placeholder="Search ..." onkeyup="searchPosts()" />
@@ -121,7 +73,7 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <!-- Blog Posts Container -->
+    <!-- Blog Posts -->
     <div class="row" id="blogContainer"></div>
     <!-- Pagination -->
     <div class="pagination-container">
@@ -150,8 +102,8 @@
 
     function fetchPosts() {
       document.getElementById("loadingSpinner").style.display = "flex";
-      // Fetch data for Blog1 by using ?sheet=blog1
-      fetch("https://script.google.com/macros/s/AKfycbzFcH2XMQEiZkfsH9bH6qurbto-gFGNXbq4Q-67ndBthY4xRlvzdY3MDr_qy4y1NG8P/exec?sheet=blog1")
+      // Fetch Blog2 data from your Apps Script URL (make sure the URL is correct)
+      fetch("https://script.google.com/macros/s/AKfycbzFcH2XMQEiZkfsH9bH6qurbto-gFGNXbq4Q-67ndBthY4xRlvzdY3MDr_qy4y1NG8P/exec?sheet=blog2")
         .then(response => {
           if (!response.ok) throw new Error("Failed to fetch blog posts");
           return response.json();
@@ -181,13 +133,14 @@
       // Reverse the filteredPosts array to show the latest posts first.
       const reversedPosts = [...filteredPosts].reverse();
       const startIndex = (currentPage - 1) * postsPerPage;
-      const currentPosts = reversedPosts.slice(startIndex, startIndex + postsPerPage);
+      const endIndex = currentPage * postsPerPage;
+      const currentPosts = reversedPosts.slice(startIndex, endIndex);
 
       currentPosts.forEach(post => {
         let postElement = `
           <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card shadow-sm border-0">
-              <a href="post1.html?id=${post.id}">
+              <a href="post2.html?id=${post.id}">
                 <img src="${post.image}" class="card-img-top" alt="${post.title}">
               </a>
               <div class="card-body">
@@ -195,7 +148,7 @@
                 <p class="card-text">${post.content.slice(0, 30)}...</p>
                 <small class="text-muted">By ${post.author} on ${post.date}</small>
                 <div class="mt-3">
-                  <a href="post1.html?id=${post.id}" class="btn btn-primary w-100">Source Code</a>
+                  <a href="post2.html?id=${post.id}" class="btn btn-primary w-100">Source Code</a>
                 </div>
               </div>
             </div>
@@ -217,7 +170,7 @@
     }
 
     function nextPage() {
-      if (currentPage * postsPerPage < filteredPosts.length) {
+      if ((currentPage * postsPerPage) < filteredPosts.length) {
         currentPage++;
         displayPosts();
       }
@@ -236,3 +189,4 @@
   </script>
 </body>
 </html>
+

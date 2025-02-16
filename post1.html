@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Store Post Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome for Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container { flex: 1; }
+    /* Navbar */
+    .navbar { background-color: #007bff; }
+    .navbar-brand, .nav-link { color: #fff !important; }
+    /* Loading Spinner */
+    .spinner-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 200;
+    }
+    /* Carousel with Black Background */
+    #imageCarousel {
+      background-color: #000;
+      border-radius: 10px;
+      padding: 3px;
+    }
+    .carousel-inner img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    /* Carousel Control Arrows */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: black;
+      border-radius: 50%;
+    }
+    .carousel-control-prev-icon::after,
+    .carousel-control-next-icon::after {
+      color: white;
+    }
+    /* Post Styling */
+    .post-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .post-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #007bff;
+    }
+    .post-content {
+      font-size: 1.1rem;
+      color: #495057;
+      margin: 20px 0;
+      line-height: 1.8;
+    }
+    /* Buttons */
+    .open-link-btn {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      white-space: nowrap;
+    }
+    .open-link-btn a {
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .open-link-btn a:first-child {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .open-link-btn a:last-child {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .open-link-btn a:hover { transform: scale(1.05); }
+    .open-link-btn a:first-child:hover { background-color: #0056b3; }
+    .open-link-btn a:last-child:hover { background-color: #218838; }
+    /* Footer */
+    footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: auto;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .post-header h2 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">2X Dark Store</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index1.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://subeesh-zero.github.io/Profile/">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://wa.me/+917695958035">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Loading Spinner -->
+  <div class="spinner-container" id="loadingSpinner">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Post Content Area -->
+  <div class="container py-5" id="postContainer" style="display: none;"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 2X Dark Store. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Get query parameters: id and sheet (default to "blog1")
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id");
+    const sheetParam = urlParams.get("sheet") || "blog1";
+    console.log("Post ID:", postId, "Sheet:", sheetParam);
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchPost(postId, sheetParam);
+    });
+
+    function fetchPost(id, sheet) {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "flex";
+      // Append the sheet parameter to the fetch URL (make sure your Apps Script URL is correct)
+      const fetchUrl = "https://script.google.com/macros/s/AKfycbzFcH2XMQEiZkfsH9bH6qurbto-gFGNXbq4Q-67ndBthY4xRlvzdY3MDr_qy4y1NG8P/exec?sheet=blog1" + sheet;
+      fetch(fetchUrl)
+        .then(response => response.json())
+        .then(posts => {
+          // Compare IDs as strings
+          const post = posts.find(p => String(p.id) === postId);
+          if (!post) {
+            document.getElementById("postContainer").innerHTML = "<p>Post not found.</p>";
+            return;
+          }
+          displayPost(post);
+        })
+        .catch(error => {
+          console.error("Error fetching post:", error);
+          document.getElementById("postContainer").innerHTML = "<p>Error loading post.</p>";
+        })
+        .finally(() => {
+          document.getElementById("loadingSpinner").style.display = "none";
+          document.getElementById("postContainer").style.display = "block";
+        });
+    }
+
+    function displayPost(post) {
+      const container = document.getElementById("postContainer");
+      // Create an array of images (if available)
+      let images = [post.image, post.image2, post.image3].filter(img => img);
+      let carouselHTML = "";
+      if (images.length) {
+        carouselHTML = `
+          <div id="imageCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              ${images.map((img, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                  <img src="${img}" class="d-block w-100" alt="Post Image ${index + 1}">
+                </div>
+              `).join('')}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        `;
+      }
+      container.innerHTML = `
+        <div class="post-header">
+          <h2>${post.title}</h2>
+          <p><strong>By ${post.author}</strong> | <small>${post.date}</small></p>
+        </div>
+        ${carouselHTML}
+        <div class="post-content">
+          <p><strong>${post.content}</strong></p>
+          <p style="color: #28a745;" class="price">Price: ${post.price ? `$${post.price}` : 'Not available'}</p>
+          <p>${post.content2}</p>
+        </div>
+        <div class="open-link-btn">
+          <a href="${post.link}" class="btn btn-primary">Open Demo</a>
+          <a href="${post.link2}" class="btn btn-success">Buy Now</a>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
