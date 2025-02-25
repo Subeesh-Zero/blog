@@ -1,186 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang=en>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Store Premium</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- FontAwesome for Icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="bot menu/botmenu.css">
-   <!-- Font Awesome for the message icon -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>My Store Premium</title>
+<link href=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css rel=stylesheet>
+<script src=https://kit.fontawesome.com/a076d05399.js></script>
+<link rel=stylesheet href="bot menu/botmenu.css">
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css rel=stylesheet>
 </head>
+<style>body{background-color:#f8f9fa;font-family:Poppins,sans-serif;color:#333;display:flex;flex-direction:column;min-height:100vh}.navbar{background:linear-gradient(90deg,#007bff,#0056b3);box-shadow:0 4px 6px rgba(0,0,0,.1);padding:1rem 0}.navbar-brand{font-size:1.5rem;font-weight:600;color:#fff!important}.nav-link{font-size:1rem;font-weight:500;color:#fff!important;margin:0 .5rem;transition:color .3s ease}.nav-link:hover{color:#ffdd57!important}.navbar-toggler{border:none;outline:0}.navbar-toggler-icon{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")}.search-container{max-width:600px;margin:20px auto;position:relative}.search-container input{padding-left:45px;border-radius:50px;font-size:1.1rem;padding:12px;border:1px solid #ccc;width:100%}.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#777;font-size:1.3rem}.card{border-radius:12px;overflow:hidden;transition:all .3s ease-in-out;background-color:#fff;box-shadow:0 4px 8px rgba(0,0,0,.1);margin-bottom:20px}.card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,.15)}.card img{height:200px;object-fit:cover;width:100%}.btn-primary{border-radius:50px;font-weight:600;transition:all .3s ease;padding:10px 20px;background:linear-gradient(90deg,#007bff,#0056b3);border:none}.pagination-container{text-align:center;margin-top:20px}.footer{background-color:#007bff;color:#fff;padding:20px 0;text-align:center;margin-top:auto}.loading-spinner{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffff;z-index:100;justify-content:center;align-items:center;display:flex}</style>
 <body>
-  <!-- Floating message icon -->
-  <div class="floating-icon" id="floatingIcon" data-bs-toggle="modal" data-bs-target="#iframeModal">
-    <i class="fas fa-comment"></i>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="iframeModal" tabindex="-1" aria-labelledby="iframeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="iframeModalLabel">Message Box</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Iframe content -->
-          <iframe src="https://script.google.com/macros/s/AKfycbzrUYg96skkcsao4e5eyaYULnaGTMLqlg3E9Qsw8crD136VN5RzzLy7ZTEgFBcQ1zt_/exec" frameborder="0"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="bot menu/botmenu.js"></script>
-
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="index1.html">2X Dark Store</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="index2.html">Store Free</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://subeesh-zero.github.io/Profile/">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://wa.me/+917695958035">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
-  <div class="container py-5">
-    <h2 class="text-center mb-4">Premiumb Store</h2>
-    <!-- Search Bar -->
-    <div class="search-container mb-4">
-      <input type="text" id="searchInput" class="form-control ps-5" placeholder="Search ..." onkeyup="searchPosts()" />
-    </div>
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="loading-spinner">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-    <!-- Blog Posts Container -->
-    <div class="row" id="blogContainer"></div>
-    <!-- Pagination -->
-    <div class="pagination-container">
-      <button id="previousButton" class="btn btn-secondary" onclick="previousPage()">Previous</button>
-      <span id="pageDisplay" class="page-info">Page 1</span>
-      <button id="nextButton" class="btn btn-secondary" onclick="nextPage()">Next</button>
-    </div>
-  </div>
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 2X Dark Store. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    let allPosts = [];
-    let filteredPosts = [];
-    let currentPage = 1;
-    const postsPerPage = 9;
-
-    document.addEventListener("DOMContentLoaded", fetchPosts);
-
-    function fetchPosts() {
-      document.getElementById("loadingSpinner").style.display = "flex";
-      // Fetch data for Blog1 by using ?sheet=blog1
-      fetch("https://script.google.com/macros/s/AKfycbzFcH2XMQEiZkfsH9bH6qurbto-gFGNXbq4Q-67ndBthY4xRlvzdY3MDr_qy4y1NG8P/exec?sheet=blog1")
-        .then(response => {
-          if (!response.ok) throw new Error("Failed to fetch blog posts");
-          return response.json();
-        })
-        .then(posts => {
-          allPosts = posts;
-          filteredPosts = allPosts;
-          displayPosts();
-          document.getElementById("loadingSpinner").style.display = "none";
-        })
-        .catch(error => {
-          console.error("Error fetching blog posts:", error);
-          alert("There was an error fetching the blog posts. Please try again later.");
-          document.getElementById("loadingSpinner").style.display = "none";
-        });
-    }
-
-    function displayPosts() {
-      const blogContainer = document.getElementById("blogContainer");
-      blogContainer.innerHTML = "";
-
-      if (filteredPosts.length === 0) {
-        blogContainer.innerHTML = `<div class="col-12 text-center"><p>No results found</p></div>`;
-        return;
-      }
-
-      // Reverse the filteredPosts array to show the latest posts first.
-      const reversedPosts = [...filteredPosts].reverse();
-      const startIndex = (currentPage - 1) * postsPerPage;
-      const currentPosts = reversedPosts.slice(startIndex, startIndex + postsPerPage);
-
-      currentPosts.forEach(post => {
-        let postElement = `
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <div class="card shadow-sm border-0">
-              <a href="post1.html?id=${post.id}">
-                <img src="${post.image}" class="card-img-top" alt="${post.title}">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">${post.title}</h5>
-                <p class="card-text">${post.content.slice(0, 30)}...</p>
-                <small class="text-muted">By ${post.author} on ${post.date}</small>
-                <div class="mt-3">
-                  <a href="post1.html?id=${post.id}" class="btn btn-primary w-100">Source Code</a>
-                </div>
-              </div>
-            </div>
-          </div>`;
-        blogContainer.innerHTML += postElement;
-      });
-      updatePagination();
-    }
-
-    function searchPosts() {
-      const searchText = document.getElementById("searchInput").value.toLowerCase();
-      filteredPosts = allPosts.filter(post =>
-        post.title.toLowerCase().includes(searchText) ||
-        post.content.toLowerCase().includes(searchText) ||
-        post.author.toLowerCase().includes(searchText)
-      );
-      currentPage = 1;
-      displayPosts();
-    }
-
-    function nextPage() {
-      if (currentPage * postsPerPage < filteredPosts.length) {
-        currentPage++;
-        displayPosts();
-      }
-    }
-
-    function previousPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        displayPosts();
-      }
-    }
-
-    function updatePagination() {
-      document.getElementById("pageDisplay").textContent = `Page ${currentPage}`;
-    }
-  </script>
+<div class=floating-icon id=floatingIcon data-bs-toggle=modal data-bs-target=#iframeModal>
+<i class="fas fa-comment"></i>
+</div>
+<div class="modal fade" id=iframeModal tabindex=-1 aria-labelledby=iframeModalLabel aria-hidden=true>
+<div class="modal-dialog modal-dialog-centered">
+<div class=modal-content>
+<div class=modal-header>
+<h5 class=modal-title id=iframeModalLabel>Message Box</h5>
+<button type=button class=btn-close data-bs-dismiss=modal aria-label=Close></button>
+</div>
+<div class=modal-body>
+<iframe src=https://script.google.com/macros/s/AKfycbzrUYg96skkcsao4e5eyaYULnaGTMLqlg3E9Qsw8crD136VN5RzzLy7ZTEgFBcQ1zt_/exec frameborder=0></iframe>
+</div>
+</div>
+</div>
+</div>
+<script src="bot menu/botmenu.js"></script>
+<nav class="navbar navbar-expand-lg navbar-dark">
+<div class=container>
+<a class=navbar-brand href=index1.html>2X Dark Store</a>
+<button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarNav aria-controls=navbarNav aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span>
+</button>
+<div class="collapse navbar-collapse" id=navbarNav>
+<ul class="navbar-nav ms-auto">
+<li class=nav-item><a class=nav-link href=#>Home</a></li>
+<li class=nav-item><a class=nav-link href=index2.html>Store Free</a></li>
+<li class=nav-item><a class=nav-link href=https://subeesh-zero.github.io/Profile/ >About</a></li>
+<li class=nav-item><a class=nav-link href=https://wa.me/+917695958035>Contact</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container py-5">
+<h2 class="text-center mb-4">Premiumb Store</h2>
+<div class="search-container mb-4">
+<input id=searchInput class="form-control ps-5" placeholder="Search ..." onkeyup=searchPosts()>
+</div>
+<div id=loadingSpinner class=loading-spinner>
+<div class="spinner-border text-primary" role=status>
+<span class=visually-hidden>Loading...</span>
+</div>
+</div>
+<div class=row id=blogContainer></div>
+<div class=pagination-container>
+<button id=previousButton class="btn btn-secondary" onclick=previousPage()>Previous</button>
+<span id=pageDisplay class=page-info>Page 1</span>
+<button id=nextButton class="btn btn-secondary" onclick=nextPage()>Next</button>
+</div>
+</div>
+<footer class=footer>
+<div class=container>
+<p>&copy; 2025 2X Dark Store. All rights reserved.</p>
+</div>
+</footer>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js></script>
+<script>let allPosts=[],filteredPosts=[],currentPage=1;const postsPerPage=9;function fetchPosts(){document.getElementById("loadingSpinner").style.display="flex",fetch("https://script.google.com/macros/s/AKfycbzFcH2XMQEiZkfsH9bH6qurbto-gFGNXbq4Q-67ndBthY4xRlvzdY3MDr_qy4y1NG8P/exec?sheet=blog1").then((e=>{if(!e.ok)throw new Error("Failed to fetch blog posts");return e.json()})).then((e=>{allPosts=e,filteredPosts=allPosts,displayPosts(),document.getElementById("loadingSpinner").style.display="none"})).catch((e=>{console.error("Error fetching blog posts:",e),alert("There was an error fetching the blog posts. Please try again later."),document.getElementById("loadingSpinner").style.display="none"}))}function displayPosts(){const e=document.getElementById("blogContainer");if(e.innerHTML="",0===filteredPosts.length)return void(e.innerHTML='<div class="col-12 text-center"><p>No results found</p></div>');const t=[...filteredPosts].reverse(),s=9*(currentPage-1);t.slice(s,s+9).forEach((t=>{let s=`\n          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">\n            <div class="card shadow-sm border-0">\n              <a href="post1.html?id=${t.id}">\n                <img src="${t.image}" class="card-img-top" alt="${t.title}">\n              </a>\n              <div class="card-body">\n                <h5 class="card-title">${t.title}</h5>\n                <p class="card-text">${t.content.slice(0,30)}...</p>\n                <small class="text-muted">By ${t.author} on ${t.date}</small>\n                <div class="mt-3">\n                  <a href="post1.html?id=${t.id}" class="btn btn-primary w-100">Source Code</a>\n                </div>\n              </div>\n            </div>\n          </div>`;e.innerHTML+=s})),updatePagination()}function searchPosts(){const e=document.getElementById("searchInput").value.toLowerCase();filteredPosts=allPosts.filter((t=>t.title.toLowerCase().includes(e)||t.content.toLowerCase().includes(e)||t.author.toLowerCase().includes(e))),currentPage=1,displayPosts()}function nextPage(){9*currentPage<filteredPosts.length&&(currentPage++,displayPosts())}function previousPage(){currentPage>1&&(currentPage--,displayPosts())}function updatePagination(){document.getElementById("pageDisplay").textContent=`Page ${currentPage}`}document.addEventListener("DOMContentLoaded",fetchPosts)</script>
 </body>
 </html>
